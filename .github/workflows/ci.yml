@@ -1,0 +1,90 @@
+name: CI
+
+# https://github.com/eriktisme/recipe-app-api-devops/blob/master/.github/workflows/continuous-deployment.yml
+
+on:
+  # deploy
+  push:
+    branches: [master, production]
+
+  # lint and test
+  # note: it will be triggered when you
+  #       - created a PR
+  #       - push a commit to PR
+  #       - even when this file isn't available in master branch yet.
+  pull_request:
+    branches: [master, production]
+
+jobs:
+  testAndLint:
+    runs-on: ubuntu-latest
+
+    # run the following steps as long as there is a PR or a COMMIT to master/production
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      # checks on codebase
+      - name: Test and Lint
+        run: echo "Test and Lint"
+
+      # provide checks on terraform
+      - name: Validate Terraform
+        run: echo "Validate Terraform"
+
+  buildAndPush:
+    runs-on: ubuntu-latest
+
+    # only runs on push/commit to master/production
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and Push
+        run: echo "Build and Push Docker Image"
+
+  stagingPlan:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Staging Plan
+        run: echo "Run Terraform Plan for Staging"
+
+  # this job will also be executed whenever there is a commit to
+  # 'production' branch. This is because hot-fixes on Production
+  # should also be deployed to 'master' branch.
+  stagingApply:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Staging Apply
+        run: echo "Run Terraform Apply for Staging"
+
+  # this job should only be triggered for 'production' branch.
+  productionPlan:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/production' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Production Plan
+        run: echo "Run Terraform Plan for Production"
+
+  productionApply:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/production' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Production Apply
+        run: echo "Run Terraform Apply for Production"

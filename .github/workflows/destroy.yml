@@ -1,0 +1,31 @@
+name: Destroy
+
+on:
+  # note: it only will be available
+  # to use when it's available on master branch.
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: "Reason?"
+        required: true
+
+jobs:
+  stagingDestroy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Staging Destroy
+        run: echo "Run Terraform Destroy for Staging"
+
+  productionDestroy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/production'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Staging Destroy
+        run: echo "Run Terraform Destroy for Staging"
