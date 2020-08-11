@@ -62,7 +62,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Staging Apply
-      - run: echo "Run Terraform Apply for Staging"
+        run: echo "Run Terraform Apply for Staging"
 
   # this job should only be triggered for 'production' branch.
   productionPlan:
@@ -73,7 +73,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Production Plan
-      - run: echo "Run Terraform Plan for Production"
+        run: echo "Run Terraform Plan for Production"
 
   productionApply:
     runs-on: ubuntu-latest
@@ -83,4 +83,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Production Apply
-      - run: echo "Run Terraform Apply for Production"
+        run: echo "Run Terraform Apply for Production"
