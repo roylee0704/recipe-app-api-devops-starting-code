@@ -44,6 +44,10 @@ resource "aws_internet_gateway" "main" {
 # Public Subnets - Inbound/Outbound Internet Acesss #
 #####################################################
 
+# subnet is like a namespace to isolate resources
+# if you assiciate a subnet to route-table that has 
+# access to internet gateway, then it automatically becomes
+# "public".
 resource "aws_subnet" "public_a" {
 
   # /24 gives us 254 hosts.
