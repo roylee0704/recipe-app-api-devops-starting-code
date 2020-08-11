@@ -32,7 +32,7 @@ jobs:
 
       # provide checks on terraform
       - name: Validate Terraform
-        run: echo "Validate Terraform
+        run: echo "Validate Terraform"
 
   buildAndPush:
     runs-on: ubuntu-latest
