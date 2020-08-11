@@ -8,6 +8,10 @@ on:
     branches: [master, production]
 
   # lint and test
+  # note: it will be triggered when you
+  #       - created a PR
+  #       - push a commit to PR
+  #       - even when this file isn't available in master branch yet.
   pull_request:
     branches: [master, production]
 
@@ -49,7 +53,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Staging Plan
-      - run: echo "Run Terraform Plan for Staging"
+        run: echo "Run Terraform Plan for Staging"
 
   # this job will also be executed whenever there is a commit to
   # 'production' branch. This is because hot-fixes on Production

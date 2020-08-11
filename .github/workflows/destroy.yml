@@ -1,6 +1,8 @@
 name: Destroy
 
 on:
+  # note: it only will be available
+  # to use when it's available on master branch.
   workflow_dispatch:
     inputs:
       tags:
