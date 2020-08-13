@@ -28,7 +28,7 @@ jobs:
         run: |
           cd deploy/
           terraform init
-          terraform select workspace staging
+          terraform workspace select staging
           terraform destroy -auto-approve
 
   productionDestroy:
@@ -49,5 +49,5 @@ jobs:
         run: |
           cd deploy/
           terraform init
-          terraform select workspace production
+          terraform workspace select production
           terraform destroy -auto-approve
