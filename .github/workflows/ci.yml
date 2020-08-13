@@ -132,7 +132,7 @@ jobs:
       - name: Staging Plan
         run: |
           cd deploy/
-          export TF_VAR_ecr_image_api=${{ secret.ECR_REPO }}:${{ steps.vars.outputs.sha_short }}
+          export TF_VAR_ecr_image_api=${{ secrets.ECR_REPO }}:${{ steps.vars.outputs.sha_short }}
           terraform init 
           terraform workplace select staging || terraform workplace new staging 
           terraform plan
@@ -176,7 +176,7 @@ jobs:
       - name: Production Plan
         run: |
           cd deploy/
-          export TF_VAR_ecr_image_api=${{ secret.ECR_REPO }}:${{ steps.vars.outputs.sha_short }}
+          export TF_VAR_ecr_image_api=${{ secrets.ECR_REPO }}:${{ steps.vars.outputs.sha_short }}
           terraform init 
           terraform workplace select production || terraform workplace new production 
           terraform plan
