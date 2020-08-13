@@ -28,11 +28,27 @@ jobs:
       # Runs a single command using the runners shell
       # checks on codebase
       - name: Test and Lint
-        run: echo "Test and Lint"
+        run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
 
-      # provide checks on terraform
+      # install terraform to the machine
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.26
+
+      # after checking out(cloned) our entire codebase to ubuntu-latest machine,
+      # on top of that, also install terraform to the machine.
+      # then, you may run terraform as though it's available at your machine
       - name: Validate Terraform
-        run: echo "Validate Terraform"
+        # switch to deploy dir
+        # -backend=false. do not need to initialize full backend, just initialize the basic provider for validation
+        # if validation fails, it will not proceed to next step.
+        # fmt -check. do not need to apply the corrected format to files, just make it fail if
+        # its not in the correct format.
+        run: |
+          cd deploy/
+          terraform init -backend=false  
+          terraform validate 
+          terraform fmt -check
 
   buildAndPush:
     runs-on: ubuntu-latest
