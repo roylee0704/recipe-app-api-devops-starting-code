@@ -260,7 +260,7 @@ resource "aws_subnet" "private_b" {
 
   # use prefix techinque for name-spacing (isolation)
   # prefix: aws-region-name
-  availability_zone = "${data.aws_region.current.name}b}"
+  availability_zone = "${data.aws_region.current.name}b"
 
   tags = merge(
     local.common_tags,
