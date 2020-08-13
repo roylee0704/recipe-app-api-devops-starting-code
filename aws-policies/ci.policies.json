@@ -1,0 +1,77 @@
+{
+    "Version": "2012-10-17",
+    // general permissions that give majority of the access to our Terraform user
+    "Statement": [
+        {
+            "Sid": "TerraformRequiredPermissions",
+            // allow or deny something
+            "Effect": "Allow",
+            // action: specific actions that a user is allowed/denied to perform
+            "Action": [
+                // allow aws-cli to authenticate with ECR
+                // - get token for our ecr repo, 
+                // - login to docker with the token
+                // - allows to push images to ecr repo.
+                "ecr:GetAuthorizationToken",
+                // allow access to all ec2 actions, because we gonna be using
+                // ec2 so heavily.
+                "ec2:*"
+            ],
+            // subject: the subjects(objects) that a user is allowed/denied 
+            // to perform his/her actions to
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowListS3StateBucket",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::roy-recipe-app-api-devops-tfstate"
+        },
+        {
+            "Sid": "AllowS3StateBucketAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::roy-recipe-app-api-devops-tfstate/*"
+        },
+        {
+            // to restrict the size of an instance that a user 
+            // can create.
+            // it's a damage control
+            "Sid": "LimitEC2Size",
+            "Effect": "Deny",
+            "Action": "ec2:RunInstances",
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "ForAnyValue:StringNotLike": {
+                    "ec2:InstanceType": [
+                        "t2.micro"
+                    ]
+                }
+            }
+        },
+        {
+            // fairly low-risk resource
+            "Sid": "AllowECRAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": "arn:aws:ecr:ap-southeast-1:*:repository/roy-recipe-app-api-devops"
+        },
+        {
+            "Sid": "AllowStateLockingAccess",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:*:*:table/roy-recipe-app-api-devops-tf-state-lock"
+            ]
+        }
+    ]
+}
