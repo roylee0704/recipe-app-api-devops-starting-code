@@ -30,15 +30,15 @@ jobs:
       - name: Test and Lint
         run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
 
-        # after checking out(cloned) our entire codebase to ubuntu-latest machine,
-        # on top of that, also install terraform to the machine.
-        # then, you may run terraform as though it's available at your machine
-      - name: Validate Terraform
-        # install terraform to the machine
-        uses: harshicorp/setup-terraform@v1
+      # install terraform to the machine
+      - uses: harshicorp/setup-terraform@v1
         with:
           terraform_version: 0.12.26
 
+      # after checking out(cloned) our entire codebase to ubuntu-latest machine,
+      # on top of that, also install terraform to the machine.
+      # then, you may run terraform as though it's available at your machine
+      - name: Validate Terraform
         # switch to deploy dir
         # -backend=false. do not need to initialize full backend, just initialize the basic provider for validation
         # if validation fails, it will not proceed to next step.
