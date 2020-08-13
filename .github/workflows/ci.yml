@@ -174,7 +174,7 @@ jobs:
   # this job should only be triggered for 'production' branch.
   productionPlan:
     runs-on: ubuntu-latest
-    needs: [testAndLint]
+    needs: [buildAndPush]
     if: ${{ github.ref == 'refs/heads/production' }}
 
     steps:
