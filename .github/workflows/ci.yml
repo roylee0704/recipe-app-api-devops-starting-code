@@ -134,7 +134,7 @@ jobs:
           cd deploy/
           export TF_VAR_ecr_image_api=${{ secrets.ECR_REPO }}:${{ steps.vars.outputs.sha_short }}
           terraform init 
-          terraform workplace select staging || terraform workplace new staging 
+          terraform workspace select staging || terraform workspace new staging 
           terraform plan
 
   # this job will also be executed whenever there is a commit to
@@ -198,7 +198,7 @@ jobs:
           cd deploy/
           export TF_VAR_ecr_image_api=${{ secrets.ECR_REPO }}:${{ steps.vars.outputs.sha_short }}
           terraform init 
-          terraform workplace select production || terraform workplace new production 
+          terraform workspace select production || terraform workspace new production 
           terraform plan
 
   productionApply:

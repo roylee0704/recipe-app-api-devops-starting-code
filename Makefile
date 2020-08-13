@@ -4,7 +4,7 @@ init:
 	docker-compose -f deploy/docker-compose.yml run --rm terraform init
 
 # terraform workspace: selects correct workspace to deploy to. i.e: dev, staging, production
-# common practise: terraform workplace select staging || terraform workplace new staging 
+# common practise: terraform workspace select staging || terraform workspace new staging 
 workspaces:
 	docker-compose -f deploy/docker-compose.yml run --rm terraform workspace list
 

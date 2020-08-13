@@ -25,7 +25,7 @@
             "Sid": "AllowListS3StateBucket",
             "Effect": "Allow",
             "Action": "s3:ListBucket",
-            "Resource": "arn:aws:s3:::roy-recipe-app-api-devops-tfstate"
+            "Resource": "arn:aws:s3:::roy-recipe-app-devops-tfstate"
         },
         {
             "Sid": "AllowS3StateBucketAccess",
@@ -34,7 +34,7 @@
                 "s3:GetObject",
                 "s3:PutObject"
             ],
-            "Resource": "arn:aws:s3:::roy-recipe-app-api-devops-tfstate/*"
+            "Resource": "arn:aws:s3:::roy-recipe-app-devops-tfstate/*"
         },
         {
             // to restrict the size of an instance that a user 
@@ -70,7 +70,7 @@
                 "dynamodb:GetItem"
             ],
             "Resource": [
-                "arn:aws:dynamodb:*:*:table/roy-recipe-app-api-devops-tf-state-lock"
+                "arn:aws:dynamodb:*:*:table/roy-recipe-app-devops-tf-state-lock"
             ]
         }
     ]
