@@ -30,8 +30,8 @@ jobs:
       - name: Test and Lint
         run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
 
-      # install terraform to the machine
-      - uses: hashicorp/setup-terraform@v1
+      - name: Install Terraform on the machine
+        uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.12.26
 
@@ -62,8 +62,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-1
+
+      # basically it install python3 and aws-cli to your machine.
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # to obtain git sha
+      - name: Declare variables
+        id: vars
+        shell: bash
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short=8 ${{ github.sha }})"
+
       - name: Build and Push
-        run: echo "Build and Push Docker Image"
+
+        # tag your local repo with sha commit. Why? We want to make sure each docker image
+        # you pushed is unique.
+        #
+        # there are 2 docker pushes here: one current (sha), one 'latest'
+        run: |
+          docker build --compress -t ${{ secrets.ECR_REPO }}:${{ steps.vars.outputs.sha_short }} .
+          docker push ${{ secrets.ECR_REPO }}:${{ steps.vars.outputs.sha_short }}
+          docker tag ${{ secrets.ECR_REPO }}:${{ steps.vars.outputs.sha_short }} ${{ secrets.ECR_REPO }}:latest
+          docker push ${{ secrets.ECR_REPO }}:latest
 
   stagingPlan:
     runs-on: ubuntu-latest
