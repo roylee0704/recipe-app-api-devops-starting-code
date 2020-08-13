@@ -1,0 +1,114 @@
+name: CI
+
+# https://github.com/eriktisme/recipe-app-api-devops/blob/master/.github/workflows/continuous-deployment.yml
+
+on:
+  # deploy
+  push:
+    branches: [master, production]
+
+  # lint and test
+  # note: it will be triggered when you
+  #       - created a PR
+  #       - push a commit to PR
+  #       - even when this file isn't available in master branch yet.
+  pull_request:
+    branches: [master, production]
+
+jobs:
+  testAndLint:
+    runs-on: ubuntu-latest
+
+    # run the following steps as long as there is a PR or a COMMIT to master/production
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      # checks on codebase
+      - name: Test and Lint
+        run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
+
+      # install terraform to the machine
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.26
+
+      # after checking out(cloned) our entire codebase to ubuntu-latest machine,
+      # on top of that, also install terraform to the machine.
+      # then, you may run terraform as though it's available at your machine
+      - name: Validate Terraform
+        # switch to deploy dir
+        # -backend=false. do not need to initialize full backend, just initialize the basic provider for validation
+        # if validation fails, it will not proceed to next step.
+        # fmt -check. do not need to apply the corrected format to files, just make it fail if
+        # its not in the correct format.
+        run: |
+          cd deploy/
+          terraform init -backend=false  
+          terraform validate 
+          terraform fmt -check
+
+  buildAndPush:
+    runs-on: ubuntu-latest
+
+    # because jobs are run in parallel..
+    # use 'needs' to specify the sequence to run
+    needs: [testAndLint]
+
+    # only runs on push/commit to master/production
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and Push
+        run: echo "Build and Push Docker Image"
+
+  stagingPlan:
+    runs-on: ubuntu-latest
+    needs: [testAndLint]
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Staging Plan
+        run: echo "Run Terraform Plan for Staging"
+
+  # this job will also be executed whenever there is a commit to
+  # 'production' branch. This is because hot-fixes on Production
+  # should also be deployed to 'master' branch.
+  stagingApply:
+    runs-on: ubuntu-latest
+    needs: [stagingPlan]
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Staging Apply
+        run: echo "Run Terraform Apply for Staging"
+
+  # this job should only be triggered for 'production' branch.
+  productionPlan:
+    runs-on: ubuntu-latest
+    needs: [testAndLint]
+    if: ${{ github.ref == 'refs/heads/production' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Production Plan
+        run: echo "Run Terraform Plan for Production"
+
+  productionApply:
+    runs-on: ubuntu-latest
+    needs: [productionPlan]
+    if: ${{ github.ref == 'refs/heads/production' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Production Apply
+        run: echo "Run Terraform Apply for Production"
