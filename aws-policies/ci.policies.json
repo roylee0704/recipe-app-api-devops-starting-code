@@ -15,7 +15,18 @@
                 "ecr:GetAuthorizationToken",
                 // allow access to all ec2 actions, because we gonna be using
                 // ec2 so heavily.
-                "ec2:*"
+                "ec2:*",
+                // permissions for terraform to create/destroy database
+                "rds:DeleteDBSubnetGroup",
+                "rds:CreateDBInstance",
+                "rds:CreateDBSubnetGroup",
+                "rds:DeleteDBInstance",
+                "rds:DescribeDBSubnetGroups",
+                "rds:DescribeDBInstances",
+                "rds:ListTagsForResource",
+                "rds:ModifyDBInstance",
+                "iam:CreateServiceLinkedRole",
+                "rds:AddTagsToResource"
             ],
             // subject: the subjects(objects) that a user is allowed/denied 
             // to perform his/her actions to
