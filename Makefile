@@ -18,6 +18,7 @@ fmt:
 	docker-compose -f deploy/docker-compose.yml run --rm terraform fmt
 
 
+# handle typos
 validate:
 	docker-compose -f deploy/docker-compose.yml run --rm terraform validate
 

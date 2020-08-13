@@ -24,3 +24,11 @@ locals {
     ManagedBy   = "Terraform"
   }
 }
+
+
+# retrieve current region that we are working on
+# empty block b'cos we do need to assign any attributes 
+# to our aws_region
+#
+# no need to hardcode
+data "aws_region" current {}
