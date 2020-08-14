@@ -57,6 +57,16 @@ resource "aws_security_group" "rds" {
 
 
 # ref: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance
+/** Assignment
+Modify the same Terraform to create a new database instance with the following specifications:
+- Uses the MySQL engine (version 5.7)
+- Runs as a db.t2.micro class
+- Has the default username: user
+- Has the default password: password
+- Has 5GB of allocated storage
+- Has the identifier assignment-db
+- Set skip final snapshot to true
+*/
 resource "aws_db_instance" "main" {
 
   # used within console
