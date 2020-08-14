@@ -16,7 +16,16 @@ variable "contact" {
 
 # db username and password, allow these values 
 # to pass in from github-ci(actions) variable configurations
-
+#
+# couple ways to set value:
+# 1. variables.tf
+# 2. manual type on terraform plan
+# 3. TF_VARs file (sample.tfvars + terraform.tfvars)
+# 4. env variables
+# 
+# common practise: sample TF_VARS file
+#
+# in this project, will set it in TF_VARS file, on ci tool.
 variable "db_username" {
   description = "Username for the RDS postgres instance"
 }
