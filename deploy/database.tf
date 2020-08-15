@@ -63,7 +63,7 @@ resource "aws_security_group" "rds" {
     #
     # why not bastion instance ip address?
     # bastion instance ip address changes as it spawned, unless you know the ip address range (which is impossible) 
-    # its very very hard to define.
+    # or maybe aws_instance.bastion.ip_address?
     security_groups = [
       aws_security_group.bastion.id
     ]
