@@ -48,9 +48,19 @@ resource "aws_instance" "bastion" {
   # you may add script to this attribute
   user_data = file("./templates/bastion/user-data.sh")
 
-  
+
   # assign an instance profile to ec2
   iam_instance_profile = aws_iam_instance_profile.bastion.name
+
+
+  key_name = var.bastion_key_name
+
+  # assign to subnet.
+  # why public? want it to be accessible for the public 
+  # why not public b? because bastion is not a very critical services
+  # if want to have available on 2 availability zones, 2 bastions one a, one b, however it's overkill.
+  # however, if a is down, then change the code to b and redeploy.
+  subnet_id = aws_subnet.public_a.id
 
   # this is like metadata in kubernetes manifest
   # tags = {
