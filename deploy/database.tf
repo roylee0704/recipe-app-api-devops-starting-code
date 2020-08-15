@@ -50,6 +50,23 @@ resource "aws_security_group" "rds" {
     # default port for postgres
     from_port = 5432
     to_port   = 5432
+
+    # by default, cidr_blocks = "0.0.0.0/0" 
+    # it allows anyone who knows the port to access
+    #
+    # but now, I only want to allow access from bastion instance.
+    # one way is to specify the security group
+    #
+    # why security group? 
+    # although you are expecting inbound access from public subnet, but you def do not want to 
+    #    specify cidr_blocks from public subnet (cos anyone can enter to public subnet).
+    #
+    # why not bastion instance ip address?
+    # bastion instance ip address changes as it spawned, unless you know the ip address range (which is impossible) 
+    # its very very hard to define.
+    security_groups = [
+      aws_security_group.bastion.id
+    ]
   }
 
   tags = local.common_tags
