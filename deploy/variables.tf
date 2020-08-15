@@ -33,3 +33,9 @@ variable "db_username" {
 variable "db_password" {
   description = "Password for the RDS postgres instance"
 }
+
+# refer to key name defined in AWS > EC2 > Key Pairs (pub keys)
+variable "bastion_key_name" {
+  # this is a default value
+  default = "roy-recipe-app-api-devops-bastion"
+}
