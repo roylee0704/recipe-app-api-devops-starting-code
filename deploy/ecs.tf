@@ -7,7 +7,6 @@ resource "aws_ecs_cluster" "main" {
   tags = local.common_tags
 }
 
-# firewall for aws resources
 ################################################################################
 # assigning the permissions in order to start a task
 #
@@ -36,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "task_execution_role" {
 #############################################################################
 
 
-
+# firewall for aws resources
 ############################################################################
 # assigning the permissions to our task that it needs at run time.
 #
