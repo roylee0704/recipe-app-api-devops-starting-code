@@ -39,3 +39,20 @@ variable "bastion_key_name" {
   # this is a default value
   default = "roy-recipe-app-api-devops-bastion"
 }
+
+variable "ecr_image_api" {
+  description = "ECR image for API"
+  default = "439299810195.dkr.ecr.ap-southeast-1.amazonaws.com/roy-recipe-app-api-devops"
+}
+
+variable "ecr_image_proxy" {
+  description = "ECR image proxy"
+  # default = ""
+}
+
+# without default, means need to pass in from 
+# - locally -> terraform.tfvars
+# - ci -> TF_VARS_
+variable "django_secret_key" {
+  description = "Secret key for Django app"
+}
