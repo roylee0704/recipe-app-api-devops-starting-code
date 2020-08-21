@@ -1,0 +1,14 @@
+# files you want to ignore under docker context (the directory you build)
+
+# dont need 
+docker-compose.yml
+
+README.md
+
+# can be large files
+.git/
+.gitignore
+
+# creating later in the course :P
+vol/
+deploy/

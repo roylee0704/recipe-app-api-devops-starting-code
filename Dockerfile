@@ -1,7 +1,11 @@
 FROM python:3.7-alpine
-MAINTAINER London App Developer Ltd
+LABEL MAINTAINERS="roylee0704@gmail.com"
 
 ENV PYTHONUNBUFFERED 1
+
+# adding /scripts to the existing path env 
+ENV PATH="/scripts:${PATH}"
+RUN pip install --upgrade pip
 
 COPY ./requirements.txt /requirements.txt
 RUN apk add --update --no-cache postgresql-client jpeg-dev
@@ -14,9 +18,18 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./app /app
 
+# copy /scripts 
+COPY ./scripts /scripts
+# make everything under scripts dir executable
+RUN chmod +x /scripts/*
+
 RUN mkdir -p /vol/web/media
 RUN mkdir -p /vol/web/static
 RUN adduser -D user
 RUN chown -R user:user /vol/
 RUN chmod -R 755 /vol/web
 USER user
+
+# default command. 
+# no need to specify scripts/, because its available in the PATH already
+CMD ["entrypoint.sh"]
