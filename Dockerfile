@@ -1,10 +1,11 @@
 FROM python:3.7-alpine
-LABEL MAINTAINERS="roylee0704@gmail.com"
+LABEL maintainer="roylee0704@gmail.com"
 
 ENV PYTHONUNBUFFERED 1
 
 # adding /scripts to the existing path env 
 ENV PATH="/scripts:${PATH}"
+
 RUN pip install --upgrade pip
 
 COPY ./requirements.txt /requirements.txt
@@ -19,7 +20,7 @@ WORKDIR /app
 COPY ./app /app
 
 # copy /scripts 
-COPY ./scripts /scripts
+COPY ./scripts/ /scripts/
 # make everything under scripts dir executable
 RUN chmod +x /scripts/*
 
