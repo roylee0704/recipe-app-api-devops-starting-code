@@ -127,6 +127,9 @@ resource "aws_security_group" "ecs_service" {
 
   # within ecs container, i want to have outbound-access
   # to internet via HTTPS
+  # 
+  # allow our service acesss to the network in order to pull container and run it, 
+  # also give access to our serivce it needs to make outbound connections on port 443 - https.
   egress {
     from_port   = 443
     to_port     = 443
@@ -159,6 +162,8 @@ resource "aws_security_group" "ecs_service" {
 }
 
 
+# ecs service is the resource that runs our container in the ecs-cluster. 
+#
 # this is like bastion instance, you will setup:
 # - firewall for network: security group
 # - firewall for aws resources: policy
