@@ -90,15 +90,26 @@ data "template_file" "api_container_definitions" {
 
 # this is the main entry-point to run ECS cluster
 resource "aws_ecs_task_definition" "api" {
-  family                   = "${local.prefix}-api"
-  container_definitions    = data.template_file.api_container_definitions.rendered
+
+  # family is the name of the task definition. td can be created in different family.
+  family = "${local.prefix}-api"
+
+  # replaced all the values into template
+  container_definitions = data.template_file.api_container_definitions.rendered
+
+  # fargate is a type of ecs hosting - allows us to host container w/o managing server.
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = 256
-  memory                   = 512
-  execution_role_arn       = aws_iam_role.task_execution_role.arn
-  task_role_arn            = aws_iam_role.app_iam_role.arn
 
+  # define in the fargate cost
+  cpu    = 256
+  memory = 512
+
+  # permissions our task need in order to start new container
+  execution_role_arn = aws_iam_role.task_execution_role.arn
+
+  # role given to running tasks.
+  task_role_arn = aws_iam_role.app_iam_role.arn
 
   volume {
     name = "static"

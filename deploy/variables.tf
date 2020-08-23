@@ -40,14 +40,15 @@ variable "bastion_key_name" {
   default = "roy-recipe-app-api-devops-bastion"
 }
 
+# local machine will use it, but github-actions ci will use commit sha
 variable "ecr_image_api" {
   description = "ECR image for API"
-  default     = "439299810195.dkr.ecr.ap-southeast-1.amazonaws.com/roy-recipe-app-api-devops"
+  default     = "439299810195.dkr.ecr.ap-southeast-1.amazonaws.com/roy-recipe-app-api-devops:latest"
 }
 
 variable "ecr_image_proxy" {
   description = "ECR image proxy"
-  # default = ""
+  default     = "439299810195.dkr.ecr.ap-southeast-1.amazonaws.com/recipe-app-api-proxy:latest"
 }
 
 # without default, means need to pass in from 
