@@ -1,0 +1,59 @@
+# this docker compose simulates how the system works in Production environment.
+# we use ./docker-compose.yml (app + db) as base to modify (include proxy).
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+    # -1. ports:8000 has been removed. our app will be serving content via proxy.
+    # ports:
+    #   - "8000:8000"
+    volumes:
+      - ./app:/app
+      # +2. static_data dir will be created in your localhost. it collects all the static files from collectstatic util
+      - static_data:/vol/web
+      # -4. removed command, we will run entrypoint.sh
+    # command: >
+    #   sh -c "python manage.py wait_for_db &&
+    #          python manage.py migrate &&
+    #          python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=postgres
+      - DB_PASS=supersecretpassword
+      # -5. removed debug since its going to be production simulation
+      # - DEBUG=1
+      # +6. allow proxy to access
+      - ALLOWED_HOSTS=127.0.0.1
+    depends_on:
+      - db
+
+  # +7. add proxy service
+  proxy:
+    image: proxy:latest
+
+    # 'proxy' service depends on 'app'
+    # we will be able to access 'app' using 'app' as the hostname.
+    # make sure 'app' starts before 'proxy'
+    depends_on:
+      - app
+
+    ports:
+      - 8000:8000
+    volumes:
+      # access volumes from other container via directory in localhost, 'static_data'.
+      # files in static_data will be visible in /vol/static in 'proxy' container.
+      - static_data:/vol/static
+
+  db:
+    image: postgres:10-alpine
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=supersecretpassword
+
+# +8. define the volumes, docker-compose will create for you
+volumes:
+  static_data:
