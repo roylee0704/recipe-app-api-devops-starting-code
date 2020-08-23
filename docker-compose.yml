@@ -17,6 +17,7 @@ services:
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASS=supersecretpassword
+      - DEBUG=1 # since we only run docker-compose in local, so just switch it on
     depends_on:
       - db
 
