@@ -69,7 +69,10 @@
                 "ecs:DeleteService",
                 "ecs:DescribeTaskDefinition",
                 "ecs:DescribeServices",
-                "ecs:CreateCluster"
+                "ecs:CreateCluster",
+                /////////////////////////////////////////////////////////////
+                // permissions below allows load-balancer creation
+                "elasticloadbalancing:*"
             ],
             // subject: the subjects(objects) that a user is allowed/denied 
             // to perform his/her actions to
