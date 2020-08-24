@@ -65,7 +65,8 @@ resource "aws_security_group" "rds" {
     # bastion instance ip address changes as it spawned, unless you know the ip address range (which is impossible) 
     # or maybe aws_instance.bastion.ip_address?
     security_groups = [
-      aws_security_group.bastion.id
+      aws_security_group.bastion.id,
+      aws_security_group.ecs_service.id
     ]
   }
 
@@ -101,7 +102,7 @@ resource "aws_db_instance" "main" {
   engine_version = "11.4"
 
   db_subnet_group_name   = aws_db_subnet_group.main.name
-  vpc_security_group_ids = [aws_security_group.rds.id, aws_security_group.ecs_service.id]
+  vpc_security_group_ids = [aws_security_group.rds.id]
 
   # disclaimer: settings below are not for production
   backup_retention_period = 0     # num of days you want to maintain backups for
