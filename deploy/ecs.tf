@@ -87,13 +87,14 @@ data "template_file" "api_container_definitions" {
   }
 }
 
-
+# kube: this is a POD definition, task === POD.
 # this is the main entry-point to run ECS cluster
 resource "aws_ecs_task_definition" "api" {
 
   # family is the name of the task definition. td can be created in different family.
   family = "${local.prefix}-api"
 
+  # kube: this is 'spec' within a POD definition, where you specify a list of containers!
   # replaced all the values into template
   container_definitions = data.template_file.api_container_definitions.rendered
 
