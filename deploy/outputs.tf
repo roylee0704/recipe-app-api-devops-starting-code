@@ -15,3 +15,10 @@ output "db_host" {
 output "bastion_host" {
   value = aws_instance.bastion.public_dns
 }
+
+
+# creates new output value for load balancer dns name
+# once its been created by Terraform
+output "api_endpoint" {
+  value = aws_lb.api.dns_name
+}
