@@ -83,7 +83,7 @@ data "template_file" "api_container_definitions" {
     log_group_name   = aws_cloudwatch_log_group.ecs_task_logs.name
     log_group_region = data.aws_region.current.name
 
-    allowed_hosts = "*"
+    allowed_hosts = aws_lb.api.dns_name // put "*" before load-balancer
   }
 }
 
@@ -152,10 +152,14 @@ resource "aws_security_group" "ecs_service" {
   # our application running on :9000
   # but we only expose the :8000 (proxy)
   ingress {
-    from_port   = 8000
-    to_port     = 8000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 8000
+    to_port   = 8000
+    protocol  = "tcp"
+
+    // use cidr_blocks = ["0.0.0.0/0"] before load-balancer
+    security_groups = [
+      aws_security_group.lb.id
+    ]
   }
 
   tags = local.common_tags
@@ -183,10 +187,21 @@ resource "aws_ecs_service" "api" {
   # move back to private after load-balancer added in.
   network_configuration {
     subnets = [
-      aws_subnet.public_a.id,
-      aws_subnet.public_b.id
+      aws_subnet.private_a.id,
+      aws_subnet.private_b.id
     ]
-    security_groups  = [aws_security_group.ecs_service.id]
-    assign_public_ip = true
+    security_groups = [aws_security_group.ecs_service.id]
+    # use assign_public_ip = true before load balancer
+  }
+
+  # tells our ecs service to register new tasks with our 
+  # target group
+  load_balancer {
+    target_group_arn = aws_lb_target_group.api.arn
+
+    # tells target group to forward requests
+    # to 'proxy' container and port.
+    container_name = "proxy"
+    container_port = 8000
   }
 }
