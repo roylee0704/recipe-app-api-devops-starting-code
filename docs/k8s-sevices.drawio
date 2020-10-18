@@ -1,0 +1,73 @@
+<mxfile host="65bd71144e" modified="2020-10-14T07:47:13.837Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.50.0 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="TsrXnzPtDfd6EQy5jFw7" version="13.6.5">
+    <diagram id="0Z6QE2X-mUxOmuZX3hnT" name="Cluster-IP">
+        <mxGraphModel dx="705" dy="514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="23" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="450" width="570" height="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Cluster Service" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="570" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="static cluster-ip" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="540" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="4" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="target port: 3000" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="630" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="POD: API-old" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="760" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="POD: API-old" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="770" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="POD: API-old" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="780" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Cluster Service" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="570" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="static cluster-ip" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="540" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="19" target="21" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="target port: 3001" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="630" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="POD: API-old" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="760" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="POD: API-old" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="770" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="POD: API-new" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="780" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="NODE" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="200" y="450" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="east-west" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="10" y="620" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="27" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="27" target="18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="static node-ip" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#60a917;strokeColor=#2D7600;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="410" width="460" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="north-east" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#60a917;strokeColor=#2D7600;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="10" y="680" width="120" height="50" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

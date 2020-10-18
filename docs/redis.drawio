@@ -1,0 +1,130 @@
+<mxfile host="b9930590-8dbd-4bde-9b7e-1aca1d7f75da" modified="2020-09-27T05:44:27.528Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.49.1 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="Odos98AN3gt4PHWSroyi" version="13.1.3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="977" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="9" y="310" width="771" height="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="350" width="320" height="380" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="535" y="400" width="195" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="IF REDIS IN PUBLIC SUBNET" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="255" y="260" width="290" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="aws_subnet.public_a" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="535" y="400" width="140" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="aws_vpc.main" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="440" y="350" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="aws_elasticache_cluster.main" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.elasticache;fillColor=#2E73B8;gradientColor=none;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="610" y="585" width="50" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="aws_instance.bastion" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.ec2;fillColor=#F58534;gradientColor=none;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="615" y="450" width="40" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="aws_cloud" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="9" y="310" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;endArrow=classic;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="6" target="19">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="ingress = aws_security._group.bastion.id" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-25;" vertex="1" connectable="0" parent="23">
+                    <mxGeometry x="0.2607" y="2" relative="1" as="geometry">
+                        <mxPoint x="28.299999999999997" y="-19.930000000000003" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="26" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;dashed=1;dashPattern=1 4;endArrow=classic;endFill=1;" edge="1" parent="1" source="18" target="6">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="egress = aws_subnet.public_a.cidr_block" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=30;" vertex="1" connectable="0" parent="26">
+                    <mxGeometry x="0.2057" relative="1" as="geometry">
+                        <mxPoint x="-42.980000000000004" y="-21.45" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;dashed=1;dashPattern=1 4;endArrow=none;endFill=0;fontSize=20;startArrow=classic;startFill=1;" edge="1" parent="1" source="18" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="&lt;span style=&quot;font-size: 11px&quot;&gt;ingress: ssh&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=20;rotation=-30;" vertex="1" connectable="0" parent="28">
+                    <mxGeometry x="0.0634" y="4" relative="1" as="geometry">
+                        <mxPoint x="4.35" y="-12.14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="18" value="aws_security_group.bastion" style="fontStyle=1;verticalAlign=top;align=center;spacingTop=-2;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=2;dashed=1;container=1;collapsible=0;expand=0;recursiveResize=0;" vertex="1" parent="1">
+                    <mxGeometry x="89" y="430" width="161" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="aws_security_group.redis" style="fontStyle=1;verticalAlign=top;align=center;spacingTop=-2;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=2;dashed=1;container=1;collapsible=0;expand=0;recursiveResize=0;" vertex="1" parent="1">
+                    <mxGeometry x="84" y="680" width="171" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="9" y="930" width="781" height="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="970" width="330" height="380" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="535" y="1190" width="180" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="IF REDIS IN PRIVATE SUBNET" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="880" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="aws_subnet.public_a" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="535" y="1190" width="140" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="aws_vpc.main" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="440" y="970" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="aws_instance.bastion" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.ec2;fillColor=#F58534;gradientColor=none;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="610" y="1230" width="40" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="aws_cloud" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="9" y="930" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;endArrow=classic;endFill=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="47" target="46">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="ingress = aws_security._group.bastion.id" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-30;" vertex="1" connectable="0" parent="39">
+                    <mxGeometry x="0.2607" y="2" relative="1" as="geometry">
+                        <mxPoint x="14.29" y="-13.3" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;dashed=1;dashPattern=1 4;endArrow=classic;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="45" target="47">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="egress = aws_subnet.private_a.cidr_block" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=15;" vertex="1" connectable="0" parent="41">
+                    <mxGeometry x="0.2057" relative="1" as="geometry">
+                        <mxPoint x="-52.040000000000006" y="-4.819999999999999" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;dashed=1;dashPattern=1 4;endArrow=none;endFill=0;fontSize=20;startArrow=classic;startFill=1;" edge="1" parent="1" source="45" target="30">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="&lt;span style=&quot;font-size: 11px&quot;&gt;ingress: ssh&lt;/span&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=20;rotation=-30;" vertex="1" connectable="0" parent="43">
+                    <mxGeometry x="0.0634" y="4" relative="1" as="geometry">
+                        <mxPoint x="4.35" y="-12.14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" value="aws_security_group.bastion" style="fontStyle=1;verticalAlign=top;align=center;spacingTop=-2;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=2;dashed=1;container=1;collapsible=0;expand=0;recursiveResize=0;" vertex="1" parent="1">
+                    <mxGeometry x="89" y="1050" width="161" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="aws_security_group.redis" style="fontStyle=1;verticalAlign=top;align=center;spacingTop=-2;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;strokeWidth=2;dashed=1;container=1;collapsible=0;expand=0;recursiveResize=0;" vertex="1" parent="1">
+                    <mxGeometry x="84" y="1300" width="171" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="535" y="1010" width="180" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="aws_elasticache_cluster.main" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.elasticache;fillColor=#2E73B8;gradientColor=none;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="600" y="1060" width="50" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="aws_subnet.private_a" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="535" y="1010" width="140" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
